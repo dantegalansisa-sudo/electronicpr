@@ -94,7 +94,7 @@ export function Contact() {
   const rot = useTransform(scrollYProgress, [0, 1], [-200, 0]);
 
   const cards = [
-    { k: 'Teléfono', v: BUSINESS.phone, h: BUSINESS.phoneHref, tone: 'red' },
+    { k: 'Teléfono', v: BUSINESS.phone, h: BUSINESS.phoneHref, tone: 'cyan' },
     { k: 'WhatsApp', v: 'Escríbenos 24/7', h: waLink(), tone: 'wa', ext: true },
     { k: 'Email', v: BUSINESS.email, h: `mailto:${BUSINESS.email}`, tone: 'blue' },
   ];
@@ -102,7 +102,7 @@ export function Contact() {
   return (
     <section className="contact" id="contacto" ref={ref}>
       <div className="contact__bg" aria-hidden>
-        <div className="aurora aurora--red" />
+        <div className="aurora aurora--cyan" />
         <div className="aurora aurora--blue" />
         <div className="noise" />
       </div>
@@ -189,7 +189,7 @@ export function Footer() {
       <div className="container footer__top">
         <div>
           <span className="brandmark brandmark--lg">
-            TECNOTR<Spiral size={30} spin />NICS
+            TECNOTR<Spiral size={30} spin brand />NICS
           </span>
           <span className="brandmark__sub">Office Equipment · Puerto Rico</span>
         </div>

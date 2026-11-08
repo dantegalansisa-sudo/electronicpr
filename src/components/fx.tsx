@@ -190,16 +190,26 @@ export function Eyebrow({ children, light }: { children: React.ReactNode; light?
 }
 
 /* ───────── Espiral de la marca ───────── */
-export function Spiral({ size = 40, spin = false, className = '' }: { size?: number; spin?: boolean; className?: string }) {
+/** brand = rojo del logo (solo en el logotipo); por defecto, tono CMYK del sitio */
+export function Spiral({ size = 40, spin = false, className = '', brand = false }: { size?: number; spin?: boolean; className?: string; brand?: boolean }) {
+  const id = brand ? 'spg-brand' : 'spg-site';
   return (
     <svg className={`spiral ${spin ? 'spiral--spin' : ''} ${className}`} width={size} height={size} viewBox="0 0 100 100" aria-hidden>
       <defs>
-        <radialGradient id="spg" cx="40%" cy="35%" r="70%">
-          <stop offset="0%" stopColor="#ff4a3d" />
-          <stop offset="100%" stopColor="#c41810" />
-        </radialGradient>
+        {brand ? (
+          <radialGradient id={id} cx="40%" cy="35%" r="70%">
+            <stop offset="0%" stopColor="#ff4a3d" />
+            <stop offset="100%" stopColor="#c41810" />
+          </radialGradient>
+        ) : (
+          <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#12c8ff" />
+            <stop offset="55%" stopColor="#2b4cff" />
+            <stop offset="100%" stopColor="#7b5cff" />
+          </linearGradient>
+        )}
       </defs>
-      <circle cx="50" cy="50" r="48" fill="url(#spg)" />
+      <circle cx="50" cy="50" r="48" fill={`url(#${id})`} />
       <path
         d="M50 8 A42 42 0 1 1 8 50 A34 34 0 0 1 42 16 A27 27 0 0 1 69 43 A20 20 0 0 1 49 63 A13 13 0 0 1 36 50 A7 7 0 0 1 43 43"
         fill="none"

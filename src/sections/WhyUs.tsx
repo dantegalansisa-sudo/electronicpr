@@ -76,11 +76,11 @@ export default function WhyUs() {
             </a>
           </motion.div>
 
-          <motion.div className="bento__card bento--red" variants={gridItem}>
+          <motion.div className="bento__card bento--cyan" variants={gridItem}>
             <span className="bento__label">Ubicación</span>
             <h3>San Juan, Puerto Rico</h3>
             <p className="mono">{BUSINESS.address}</p>
-            <Spiral size={140} spin className="bento--red__spiral" />
+            <Spiral size={140} spin className="bento--cyan__spiral" />
           </motion.div>
         </motion.div>
       </div>

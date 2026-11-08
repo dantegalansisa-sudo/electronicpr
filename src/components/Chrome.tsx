@@ -78,16 +78,12 @@ const LINKS = [
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
   useEffect(() => {
     const f = () => setScrolled(window.scrollY > 40);
     f();
     window.addEventListener('scroll', f, { passive: true });
     return () => window.removeEventListener('scroll', f);
   }, []);
-  useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
-  }, [open]);
 
   return (
     <>
@@ -99,7 +95,7 @@ export function Navbar() {
       >
         <a href="#top" className="nav__brand" aria-label="Tecnotronics inicio">
           <span className="brandmark">
-            TECNOTR<Spiral size={18} />NICS
+            TECNOTR<Spiral size={18} brand />NICS
           </span>
           <span className="brandmark__sub">Office Equipment</span>
         </a>
@@ -119,43 +115,70 @@ export function Navbar() {
           <MagneticButton href={waLink()} target="_blank" className="btn btn--lime btn--sm">
             Estimado gratis <Arrow />
           </MagneticButton>
-          <button className={`burger ${open ? 'burger--open' : ''}`} onClick={() => setOpen((o) => !o)} aria-label="Menú">
-            <i />
-            <i />
-          </button>
+          <a href={BUSINESS.phoneHref} className="nav__call" aria-label={`Llamar ${BUSINESS.phone}`}>
+            <PhoneIcon />
+          </a>
         </div>
       </motion.header>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            className="mobile-menu"
-            initial={{ clipPath: 'circle(0% at 92% 4%)' }}
-            animate={{ clipPath: 'circle(150% at 92% 4%)' }}
-            exit={{ clipPath: 'circle(0% at 92% 4%)' }}
-            transition={{ duration: 0.8, ease: ease('premium') }}
-          >
-            {LINKS.map(([l, h], i) => (
-              <motion.a
-                key={h}
-                href={h}
-                onClick={() => setOpen(false)}
-                initial={{ y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.25 + i * 0.06, duration: 0.6, ease: ease('premium') }}
-              >
-                <span className="mono">0{i + 1}</span>
-                {l}
-              </motion.a>
-            ))}
-            <div className="mobile-menu__foot">
-              <a href={BUSINESS.phoneHref} className="btn btn--red">Llamar {BUSINESS.phone}</a>
-              <a href={waLink()} className="btn btn--ghost-light" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
+  );
+}
+
+/* ───────── Barra inferior tipo app (solo móvil) ───────── */
+const TABS: { id: string; label: string; icon: JSX.Element }[] = [
+  { id: 'top', label: 'Inicio', icon: <path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" /> },
+  { id: 'servicios', label: 'Servicios', icon: <><rect x="3" y="3" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="3" width="7.5" height="7.5" rx="2" /><rect x="3" y="13.5" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" /></> },
+  { id: 'diagnostico', label: 'Diagnóstico', icon: <><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5M8 11h6M11 8v6" /></> },
+  { id: 'contacto', label: 'Contacto', icon: <><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.5" /></> },
+];
+
+export function TabBar({ show }: { show: boolean }) {
+  const [active, setActive] = useState('top');
+  useEffect(() => {
+    const f = () => {
+      let cur = 'top';
+      for (const t of TABS) {
+        const el = document.getElementById(t.id);
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 0.45) cur = t.id;
+      }
+      setActive(cur);
+    };
+    window.addEventListener('scroll', f, { passive: true });
+    return () => window.removeEventListener('scroll', f);
+  }, []);
+
+  const left = TABS.slice(0, 2);
+  const right = TABS.slice(2);
+  const item = (t: (typeof TABS)[number]) => (
+    <a key={t.id} href={`#${t.id}`} className={`tab ${active === t.id ? 'tab--on' : ''}`}>
+      {active === t.id && <motion.span layoutId="tabpill" className="tab__pill" transition={{ type: 'spring', stiffness: 400, damping: 32 }} />}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{t.icon}</svg>
+      <span>{t.label}</span>
+    </a>
+  );
+
+  return (
+    <motion.nav
+      className="tabbar"
+      initial={{ y: 120 }}
+      animate={show ? { y: 0 } : { y: 120 }}
+      transition={{ type: 'spring', stiffness: 220, damping: 26, delay: 0.6 }}
+      aria-label="Navegación"
+    >
+      {left.map(item)}
+      <a href={waLink()} target="_blank" rel="noopener noreferrer" className="tab__fab" aria-label="WhatsApp">
+        <WhatsIcon size={26} />
+      </a>
+      {right.map(item)}
+    </motion.nav>
+  );
+}
+
+function PhoneIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" />
+    </svg>
   );
 }
 

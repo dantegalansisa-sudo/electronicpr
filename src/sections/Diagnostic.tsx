@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { DIAGNOSTIC, Device, waLink } from '../data';
 import { Eyebrow, RevealText } from '../components/fx';
@@ -22,6 +22,14 @@ const LEVELS = ['', 'Sencillo', 'Moderado', 'Importante', 'Requiere técnico'];
 export default function Diagnostic() {
   const [device, setDevice] = useState<Device>('impresora');
   const [issue, setIssue] = useState<string | null>(null);
+  useEffect(() => {
+    const f = (e: Event) => {
+      setDevice((e as CustomEvent<Device>).detail);
+      setIssue(null);
+    };
+    window.addEventListener('tp:device', f);
+    return () => window.removeEventListener('tp:device', f);
+  }, []);
   const data = DIAGNOSTIC[device];
   const current = data.issues.find((i) => i.id === issue);
 

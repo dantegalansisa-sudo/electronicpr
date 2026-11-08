@@ -28,7 +28,7 @@ export interface Service {
   points: string[];
   img: string;
   cutout?: boolean;
-  tone: 'red' | 'cobalt' | 'violet' | 'teal' | 'amber' | 'lime';
+  tone: 'cyan' | 'cobalt' | 'violet' | 'teal' | 'amber' | 'lime';
 }
 
 export const SERVICES: Service[] = [
@@ -41,7 +41,7 @@ export const SERVICES: Service[] = [
     points: ['Todas las marcas', 'Piezas originales', 'Pruebas de calidad'],
     img: 'img/printer-hp.png',
     cutout: true,
-    tone: 'red',
+    tone: 'cyan',
   },
   {
     id: 'copiadoras',

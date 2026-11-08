@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import { CustomCursor } from './components/fx';
-import { FloatingWhatsApp, Navbar, Preloader, ScrollProgress } from './components/Chrome';
+import { FloatingWhatsApp, Navbar, Preloader, ScrollProgress, TabBar } from './components/Chrome';
 import Hero from './sections/Hero';
 import { BrandMarquee, Manifesto } from './sections/Story';
 import Services from './sections/Services';
@@ -15,6 +15,7 @@ export default function App() {
 
   useEffect(() => {
     const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
     let raf = 0;
     const loop = (t: number) => {
       lenis.raf(t);
@@ -63,6 +64,7 @@ export default function App() {
       </main>
       <Footer />
       <FloatingWhatsApp />
+      <TabBar show={ready} />
     </>
   );
 }
