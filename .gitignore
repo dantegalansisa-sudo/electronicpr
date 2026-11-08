@@ -1,0 +1,13 @@
+node_modules
+dist
+*.log
+.DS_Store
+
+# Material de referencia interno (no publicar)
+WhatsApp Unknown*/
+image (1).png
+image (2).png
+assets-src/
+.claude/
+
+*.tsbuildinfo
