@@ -1,47 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { ease } from '../utils/easings';
 import { useParallax } from '../hooks/useParallax';
-
-/* ───────── Cursor magnético ───────── */
-export function CustomCursor() {
-  const x = useMotionValue(-100);
-  const y = useMotionValue(-100);
-  const sx = useSpring(x, { damping: 25, stiffness: 250 });
-  const sy = useSpring(y, { damping: 25, stiffness: 250 });
-  const [hover, setHover] = useState(false);
-  const [label, setLabel] = useState('');
-
-  useEffect(() => {
-    const move = (e: MouseEvent) => {
-      x.set(e.clientX);
-      y.set(e.clientY);
-    };
-    const over = (e: MouseEvent) => {
-      const el = (e.target as HTMLElement).closest('a, button, [data-cursor]') as HTMLElement | null;
-      setHover(!!el);
-      setLabel(el?.dataset.cursor ?? '');
-    };
-    window.addEventListener('mousemove', move);
-    window.addEventListener('mouseover', over);
-    return () => {
-      window.removeEventListener('mousemove', move);
-      window.removeEventListener('mouseover', over);
-    };
-  }, [x, y]);
-
-  return (
-    <>
-      <motion.div className="cursor-dot" style={{ x, y }} />
-      <motion.div
-        className={`cursor-ring ${hover ? 'cursor--hover' : ''} ${label ? 'cursor--label' : ''}`}
-        style={{ x: sx, y: sy }}
-      >
-        {label && <span>{label}</span>}
-      </motion.div>
-    </>
-  );
-}
 
 /* ───────── Text reveal por palabra ───────── */
 interface RevealTextProps {

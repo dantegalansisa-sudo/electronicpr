@@ -18,7 +18,7 @@ function ServiceCard({ s, i }: { s: (typeof SERVICES)[number]; i: number }) {
   return (
     <motion.article
       className={`svc svc--${s.tone}`}
-      data-cursor="Ver"
+     
       variants={gridItem}
       whileHover={{ y: -10 }}
       transition={{ duration: 0.35 }}

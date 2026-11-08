@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
-import { CustomCursor } from './components/fx';
 import { FloatingWhatsApp, Navbar, Preloader, ScrollProgress, TabBar } from './components/Chrome';
 import Hero from './sections/Hero';
 import { BrandMarquee, Manifesto } from './sections/Story';
@@ -47,7 +46,6 @@ export default function App() {
   return (
     <>
       <Preloader onDone={() => setReady(true)} />
-      <CustomCursor />
       <ScrollProgress />
       <Navbar />
       <main>
