@@ -7,7 +7,7 @@ Hecho por NEXIX Tech Studio con React + TypeScript + Vite + Framer Motion + Leni
 ## Secciones
 
 1. **Preloader** con la espiral de la marca
-2. **Hero** con impresora en 3D que sigue al mouse y tarjetas flotantes
+2. **Hero** claro tipo cielo: titular en dos tonos con íconos en línea y un arco de tarjetas flotantes (en móvil, formato web app)
 3. **Marquee de marcas** que reacciona a la velocidad del scroll
 4. **Manifiesto** con píldoras animadas y texto que se ilumina al hacer scroll
 5. **Servicios**: scroll horizontal fijo (en desktop) con 6 servicios

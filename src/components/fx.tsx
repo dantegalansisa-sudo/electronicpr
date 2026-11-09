@@ -53,10 +53,9 @@ interface MagneticProps {
   className?: string;
   strength?: number;
   target?: string;
-  cursor?: string;
 }
 
-export function MagneticButton({ children, href, className = '', strength = 0.35, target, cursor }: MagneticProps) {
+export function MagneticButton({ children, href, className = '', strength = 0.35, target }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   return (
@@ -74,7 +73,6 @@ export function MagneticButton({ children, href, className = '', strength = 0.35
         target={target}
         rel={target ? 'noopener noreferrer' : undefined}
         className={className}
-        data-cursor={cursor}
         animate={{ x: pos.x, y: pos.y }}
         transition={{ type: 'spring', stiffness: 200, damping: 18 }}
       >

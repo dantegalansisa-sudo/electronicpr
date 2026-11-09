@@ -90,7 +90,7 @@ export function FAQ() {
 export function Contact() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end end'] });
-  const big = useTransform(scrollYProgress, [0, 1], ['18%', '0%']);
+  const big = useTransform(scrollYProgress, [0, 1], ['-14%', '0%']);
   const rot = useTransform(scrollYProgress, [0, 1], [-200, 0]);
 
   const cards = [
@@ -174,7 +174,7 @@ export function Contact() {
         </div>
 
         <div className="contact__cta">
-          <MagneticButton href={waLink()} target="_blank" className="btn btn--wa btn--xl" cursor="¡Vamos!">
+          <MagneticButton href={waLink()} target="_blank" className="btn btn--wa btn--xl">
             <WhatsIcon size={24} /> Pide tu estimado gratis
           </MagneticButton>
         </div>
@@ -187,7 +187,7 @@ export function Footer() {
   return (
     <footer className="footer">
       <div className="container footer__top">
-        <div>
+        <div className="footer__brand">
           <span className="brandmark brandmark--lg">
             TECNOTR<Spiral size={30} spin brand />NICS
           </span>
